@@ -124,7 +124,21 @@ this.$.menuBtn.addEventListener('click', event => {
 And the new toggleMenu method looks like this: 
 *** 
 toggleMenu(){ 
-        this.$.menuItems.classList.toggle('hidden')
+        this.$.menuItems.classList.toggle('hidden');
     }
 *** 
 
+And we will build out on this toggleMethod to do more things, the first of which is to add a border when 
+the menu gets selected: 
+toggleMenu(){ 
+        this.$.menuItems.classList.toggle("hidden"); 
+        this.$.menuBtn.classList("border");
+    }
+
+And then we will also make it so the arrow icon changes when we click the menu button: 
+*** 
+const icon = this.$.menuBtn.querySelector('i');
+
+icon.classList.toggle("fa-chevron-down");
+icon.classList.toggle("fa-chevron-up");
+***
