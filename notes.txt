@@ -1,0 +1,130 @@
+This refactor will be utilizing OOP and ES6 classes. 
+In  view.js, we start defining a class, where we will store the previously defined elements as class properties:
+***
+
+class View {  
+
+    $ = {}
+
+    constructor(){
+        this.$.menu = document.querySelector('[data-id="menu"]'); 
+        this.$.menuItems = document.querySelector('[data-id="menu-items"]');
+        this.$.resetBtn = document.querySelector('[data-id="reset-btn"]')
+        this.$.newRoundBtn = document.querySelector('[data-id="new-round-btn"]');
+        this.$.squares = document.querySelectorAll('[data-id="square"]');
+        this.$.modal = document.querySelector('[data-id="modal"]');
+        this.$.modalText = document.querySelector('[data-id="modal-text"]');
+        this.$.modalBtn = document.querySelector('[data-id="modal-btn"]');
+        this.$.turn = document.querySelector('[data-id="turn"]');
+    }
+} 
+
+*** 
+Here we add the selectors to the constructor method.
+We have to add this.$ because we are referencing the class instance itself, and on that
+class instance we have defined a property (we chose $ for brevity but this could be any variable)
+Remember to replace the colon with an equals sign and the ending commas with a semicolon.
+
+As it is now, it will not work quite yet; it needs to be connected to our app.js .
+Note that when refactoring, it is good practice to leave the original code in place and build out the new 
+files sides by side, instead of immedaitely deleting as you go and breaking the app (until it's been 
+completely refactored). 
+
+Then in app.js: 
+
+*** 
+function init() { 
+    const view = new View()
+} 
+ 
+window.addEventListener("load", init);
+***
+
+This is in the global scope, but this will be the only thing (aside from maybe one other) that will 
+be in the global scope. 
+In this method will initialize the View class itself. So were we are making a new class instance-- view-- of the 
+class View.
+Then we are rewriting  window event listener with the new init method. 
+
+
+In the html file, we could link the view.js file with a script tag, but this would get messy after we have too many files.
+Instead we will set the type attribute to module for the script that links this app.js file: 
+
+*** 
+<script src="js/app.js" type="module"></script>
+*** 
+
+This tells the browser that this script is an ES6 module. 
+
+And then we  import the  view class in our app.js file: 
+
+***
+import View from './view.js'
+*** 
+
+And this of course won't work without and export from  view.js. For this we will add "export default" 
+in front of the View class. Note that without the default keyword we would have to put the word View in brackets 
+in the app.js import. 
+
+Another thing the view file will contain are the event listeners. We will take all of the event listeners 
+and make them their own method in the view class. 
+
+***
+bindGameResetEvent(handler) { 
+    this.$.resetBtn.addEventListener("click", handler);
+}
+***
+And this same format will be used for the new round event method. 
+
+But the squares event listener will be start to diverge from the original  method bc we will be 
+streamlining things for this refactor.
+
+***
+bindPlayerMoveEvent(handler) { 
+    this.$.squares.forEach(square => { 
+        square.addEventListener('click', handler);
+    });
+} 
+***
+
+Since the dropdown actions method doesnt't effect the state of the game at all (it is just a view, client only 
+state that is being tracked), it can be added to constructor. 
+First we will add a new selector: 
+*** 
+this.$.menuBtn = document.querySelector('[data-id="menu-btn"]');  
+***
+
+Then we add the event listener:
+*** 
+this.$.menuItems.addEventListener('click', event => { 
+            this.$.menuItems.classList.toggle('hidden');
+        })
+***
+
+Remember that by default when the View class is instantiated, the method we just made for the event listeners are not 
+going to run; they are just mehtods of the class, and they need to be called in order for them to be added. 
+We will do that in the app's init method by binding all of the events. 
+*** 
+view.bindGameResetEvent(event => { 
+    console.log('Reset event')
+    console.log(event)
+})
+***
+This will be done for the other events too. 
+
+We will actually make another method called toggleMenu and but the menuBtn event listener logic in that 
+method, and just call that method in the menuBtn even listener.
+So now this event listener looks like this:
+*** 
+this.$.menuBtn.addEventListener('click', event => { 
+            this.toggleMenu()
+        })
+***
+
+And the new toggleMenu method looks like this: 
+*** 
+toggleMenu(){ 
+        this.$.menuItems.classList.toggle('hidden')
+    }
+*** 
+
