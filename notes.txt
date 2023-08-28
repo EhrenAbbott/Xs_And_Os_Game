@@ -176,5 +176,32 @@ this.$.menu = this.qs('[data-id="menu"]');
 Note that the utility method won't work when we use .querySelectorAll, so we will leave that as is and return to it later 
 
 
+Then we will make a similar qsAll method. This doesn't require the ternary operator. 
+*** 
+#qsAll(selector) { 
+        const elList = document.querySelectorAll(selector); 
+         
+        if(!elList) throw new Error('Could not find elements')
+
+        return elList;
+    } 
+*** 
+
+We will now make a unique namespace for the square because these represent a node list and not individual elements.
+We'll add this to the top of the class under the first namespace: 
+*** 
+$$ = {}
+***
+
+And then we will update the square selector and move it down below so that it is not grouped with the other selectors 
+that have a different namespace: 
+*** 
+this$$.squares = this.#qsAll('[data-id="square"]');
+***
+
+
+
+
+
 //3:03:33
 //3:34:38
