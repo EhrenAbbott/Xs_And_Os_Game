@@ -236,5 +236,31 @@ view.bindPlayerMoveEvent((event) => {
 *** 
 Here we are just hard-coding the player id to be 2 (instead of tracking state to set this, which we will do later)
 
+
+Now to use similar logic to set the icon the appears in the actual game board: 
+*** 
+handlePlayerMove(squareEl, player) { 
+        const icon = document.createElement('i')
+        icon.classList.add(
+            'fa-solid', 
+            player === 1 ? 'fa-x' : 'fa-o',
+            player === 1 ? 'yellow' : 'turquoise'
+        );
+        squareEl.replaceChildren(icon)
+    }
+*** 
+Note that we have to make two separate lines to add the  icon and the color classes, bc for .add 
+you can't have a whitespace in the argument, so for example 'fa-x yellow' would not be allowed.
+
+And now we have to add this to our controller (out app.js file) inside of binPlayerMoveEvent 
+*** 
+view.bindPlayerMoveEvent((event) => { 
+        view.setTurnIndicator(2)
+        view.handlePlayerMove(event.target, 1);
+    })
+***
+Note that the event target has to be passed into handlePlayerMove in order to work, bc this represents 
+the square that was clicked. 
+
 //3:03:33
 //3:34:38
