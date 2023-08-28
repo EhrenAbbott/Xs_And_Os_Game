@@ -141,4 +141,40 @@ const icon = this.$.menuBtn.querySelector('i');
 
 icon.classList.toggle("fa-chevron-down");
 icon.classList.toggle("fa-chevron-up");
+*** 
+
+Now we will add helper methods to ensure that the selectors always select the correct elements: 
+*** 
+#qs(selector, parent) { 
+        const el = parent  
+            ? parent.querySelector(selector) 
+            : document.querySelector(selector); 
+         
+        if(!el) throw new Error('Could not find elements')
+
+        return el;
+    }
+*** 
+Here we are making a const to represent the selected element, and then we are checking to see if it does not exist, 
+in which case, we will create our own custom error to let us know this is the case. Note how this is done using 
+the keyword 'throw' and then using 'new' how you would with a promise or class to set the specific Error.
+The idea behind this is tat if the element doesn't exist there is no point in continuing with the subsequent logic because 
+that would further complicated thing and make the error harder to identify.
+We also add the parent arugment and the ternary operator to conditionally set the const. This gives us some flexibility
+so that if there is a parent, that is what we search, and if not we will search from the document.
+
+A note about the #: in ES6 syntax, the # makes it a private class method so that it will not be readily accessible outside of 
+this class (it will not be public). Since we know that we won't be calling the query selector outside of the view, we can 
+make it private with the #.
+We can also make the toggleMenu method private. When you add the # you have to update the calls, so be sure to add the # back in the code 
+where these methods are called.
+
+And now we have to go change the selectors in the constructor like this: 
+*** 
+this.$.menu = this.qs('[data-id="menu"]');
 ***
+Note that the utility method won't work when we use .querySelectorAll, so we will leave that as is and return to it later 
+
+
+//3:03:33
+//3:34:38
