@@ -199,9 +199,42 @@ that have a different namespace:
 this$$.squares = this.#qsAll('[data-id="square"]');
 ***
 
+Now will will add another helper method for the turn indicator in order to refactor the icons that change according to the player: 
+*** 
+setTurnIndicator(player) { 
+        const icon = document.createElement('i')
+        const label = document.createElement('p')
+        
+        this.$.turn.classList.add(player === 1 ? 'yellow' : 'turquoise')
+        this.$.turn.classList.remove(player === 1 ? 'turquoise' : 'yellow')
+
+        icon.classList.add('fa-solid', player === 1 ? 'fa-x' : 'fa-o')
+
+        label.innerText = player === 1 ? "Player 1, you're up!" : "Player 2, you're up!" 
+
+        this.$.turn.replaceChildren(icon, label);
+
+    }
+***
+Notice that this is simpler than the orginal method in app.js bc that is tracking two pieces of state: the player who made the move 
+and then the player who will have the next turn. So here were a mixing thing and muddying the waters about, wherease with the refactor 
+we are being more explicit and declarative. 
+The .remove line is responsible for taking away a class based on the player; this way the .add will not add an 
+additional class on top of the one that already exists, it will replace one for another. 
+Then the icon line is what sets the icon itself, and same for the label line. 
+However, the first four lines don't do anything on their own, they just create those elements in memory.
+They have to be committed to the DOM in order to display correctly. That is what the last line is responsible for. 
+Also notice how 'fa-solid' is being passed in as the first argument bc it will need to be applied no matter what (without this, 
+the icon would look like it's in italics), and the second argument is the conditional one to vary which icon gets used. 
 
 
-
+And we will update the init method to use setTurnIndicator: 
+*** 
+view.bindPlayerMoveEvent((event) => { 
+        view.setTurnIndicator(2)
+    }) 
+*** 
+Here we are just hard-coding the player id to be 2 (instead of tracking state to set this, which we will do later)
 
 //3:03:33
 //3:34:38
