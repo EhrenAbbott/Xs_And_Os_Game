@@ -144,7 +144,7 @@ const App = {
     }
 }; 
 
-const Players = [ 
+const players = [ 
     { 
         id: 1, 
         name: "Player 1", 
@@ -176,8 +176,8 @@ function init() {
     })
 
     view.bindPlayerMoveEvent((event) => { 
-        view.setTurnIndicator(players[1])
-        view.handlePlayerMove(event.target, 1)
+        view.setTurnIndicator(players[2])
+        view.handlePlayerMove(event.target, players[1])
     });
 } 
 

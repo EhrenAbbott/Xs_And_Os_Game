@@ -333,7 +333,7 @@ display its actual value.
 Now we will refactor getGameStatus to make it simpler. 
 We start by making a configuration array to contain all of the relevant values for each player: 
 *** 
-const Players = [ 
+const players = [ 
     { 
         id: 1, 
         name: "Player 1", 
@@ -349,6 +349,26 @@ const Players = [
 ]
 ***
 
+
+And then we will use Players to refactor the setTurnIndicator method: 
+*** 
+setTurnIndicator(player) { 
+        const icon = document.createElement('i')
+        const label = document.createElement('p')
+        
+        icon.classList.add("fa-solid", player.colorClass, player.iconClass)
+
+        label.classList.add(player.colorClass)
+
+        label.innerText = `${player.name}, you're up!`;
+
+
+        this.$.turn.replaceChildren(icon, label);
+
+    }
+***
+Notice how here we've made it more dynamic  by using our new players class properties instead 
+of having separate lines of code for each player.
 
 //3:03:33
 //3:34:38  
