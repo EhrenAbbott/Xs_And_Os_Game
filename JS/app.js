@@ -163,7 +163,7 @@ const players = [
 
 function init() { 
     const view = new View(); 
-    const store = new Store();
+    const store = new Store(players);
      
     view.bindGameResetEvent((event) => { 
         console.log('Reset event')
@@ -176,8 +176,11 @@ function init() {
     })
 
     view.bindPlayerMoveEvent((event) => { 
+        const clickedSquare = event.target
+
+        view.handlePlayerMove(clickedSquare, store.game)
+        
         view.setTurnIndicator(players[2])
-        view.handlePlayerMove(event.target, players[1])
     });
 } 
 

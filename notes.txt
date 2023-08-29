@@ -370,6 +370,18 @@ setTurnIndicator(player) {
 Notice how here we've made it more dynamic  by using our new players class properties instead 
 of having separate lines of code for each player.
 
+
+We'll also similarly adjust the handlePlayerMove method: 
+*** 
+handlePlayerMove(squareEl, player) { 
+        const icon = document.createElement('i')
+        icon.classList.add('fa-solid', player.iconClass, player.colorClass);
+        squareEl.replaceChildren(icon)
+    }
+***
+
+Now to update get game(). First we have to pass players into the constructor so get game() can access it. 
+
 //3:03:33
 //3:34:38  
 //3:54:21 - 4:01:14
