@@ -175,14 +175,25 @@ function init() {
         console.log(event)
     })
 
-    view.bindPlayerMoveEvent((event) => { 
+    view.bindPlayerMoveEvent((square) => { 
         const clickedSquare = event.target
 
-        view.handlePlayerMove(clickedSquare, store.game.currentPlayer)
+        const existingMove = store.game.moves.find(
+            (move) => move.squareId === +square.id 
+        );
+
+        if (existingMove) { 
+            return
+        }
+
+        //Place current player icon in square
+        view.handlePlayerMove(square, store.game.currentPlayer)
         
+        // Push a move to the moves array and advance to the next state
+        store.playerMove(+square.id);
 
-
-        view.setTurnIndicator(players[1])
+        //Set turn indicator of the next player
+        view.setTurnIndicator(store.game.currentPlayer)
     });
 } 
 
