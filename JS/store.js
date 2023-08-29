@@ -6,6 +6,10 @@ export default class Store {
     #state = initialValue
     
     constructor() {} 
+
+    get game() { 
+        
+    }
      
     #getState() { 
         return this.#state

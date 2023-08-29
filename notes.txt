@@ -316,6 +316,39 @@ const initialValue = {
 ***
 And we set the state in Store to the initialValue.
 
+Remember to initialize the store in app.js
+
+At this point everything we have defined in the View class is a private method or property, so its not very useful.
+So we want to expose a getter method to read the state, and the app can take that state and do something with it. 
+*** 
+get game() { 
+        
+    }
+*** 
+The 'get' keyword makes it so that method becomes an avaiable property where it is initialized. So in this case 
+you console.log store.game in the init() method in app.js, and the value of the game getter would appear. Without 
+the'get' keyword, the console.log would just yield: function game(), and it would have to be called with store.game() to
+display its actual value. 
+
+Now we will refactor getGameStatus to make it simpler. 
+We start by making a configuration array to contain all of the relevant values for each player: 
+*** 
+const Players = [ 
+    { 
+        id: 1, 
+        name: "Player 1", 
+        iconClass: "fa-x", 
+        colorClass: "turquoise",
+    }, 
+    { 
+        id: 2, 
+        name: "Player 2", 
+        iconClass: "fa-o", 
+        colorClass: "yellow",
+    },
+]
+***
+
 
 //3:03:33
 //3:34:38  
