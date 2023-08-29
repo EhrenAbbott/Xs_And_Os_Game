@@ -260,7 +260,13 @@ view.bindPlayerMoveEvent((event) => {
     })
 ***
 Note that the event target has to be passed into handlePlayerMove in order to work, bc this represents 
-the square that was clicked. 
+the square that was clicked.  
+
+
+A note about states: a mutating state is the most common cause of bugs in application in general; actual mutation 
+of state values should be avoided. 
+In app.js we are directly mutating state when we use App.state.moves.push() ; for the size of this app, this mutation 
+isn't terrible, but it is better practice to avoid doing this. 
 
 //3:03:33
-//3:34:38
+//3:34:38 - 3:54:21
