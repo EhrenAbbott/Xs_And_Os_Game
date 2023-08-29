@@ -178,9 +178,11 @@ function init() {
     view.bindPlayerMoveEvent((event) => { 
         const clickedSquare = event.target
 
-        view.handlePlayerMove(clickedSquare, store.game)
+        view.handlePlayerMove(clickedSquare, store.game.currentPlayer)
         
-        view.setTurnIndicator(players[2])
+
+
+        view.setTurnIndicator(players[1])
     });
 } 
 
