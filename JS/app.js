@@ -166,8 +166,7 @@ function init() {
     const store = new Store(players);
      
     view.bindGameResetEvent((event) => { 
-        console.log('Reset event')
-        console.log(event)
+        view.closeModal();
     }) 
      
     view.bindNewRoundEvent((event) => { 
