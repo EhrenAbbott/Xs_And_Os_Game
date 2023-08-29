@@ -39,6 +39,11 @@ export default class View {
         });
     } 
 
+    openModal(message) { 
+        this.$.modal.classList.remove('hidden'); 
+        this.$.modalText.innerText = message;
+    }
+
     //DOM helper methods
     #toggleMenu(){ 
         this.$.menuItems.classList.toggle('hidden');

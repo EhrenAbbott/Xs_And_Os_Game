@@ -192,6 +192,16 @@ function init() {
         // Push a move to the moves array and advance to the next state
         store.playerMove(+square.id);
 
+        if (store.game.status.isComplete) { 
+            view.openModal(
+                store.game.status.winner 
+                ? `${store.game.status.winner.name} wins!`
+                : `Tie!`
+            );
+
+            return
+        }
+        
         //Set turn indicator of the next player
         view.setTurnIndicator(store.game.currentPlayer)
     });
