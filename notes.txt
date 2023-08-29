@@ -268,5 +268,55 @@ of state values should be avoided.
 In app.js we are directly mutating state when we use App.state.moves.push() ; for the size of this app, this mutation 
 isn't terrible, but it is better practice to avoid doing this. 
 
+Now to fil out the  Store class in sotre.js:
+
+When making a saveState method, it is useful to be able to reference the prior state within that method. 
+
+Inthe  View class we will create a #saveState method: 
+*** 
+#saveState(stateOrFn) { 
+        const prevState = this.#getState()
+
+        let newState 
+
+        switch (typeof stateOrFn) { 
+            case 'function':
+                newState = stateOrFn(prevState)
+                break; 
+            case 'object': 
+                newState = stateOrFn
+                break; 
+            default: 
+                throw new Error('Invalid argument passed to saveState') 
+        }
+        
+        this.#state = newState;
+    }
+***
+We start by making a const to for the previous state, which simply used the getState method to retrieve it. 
+We initialize the variable newState but don't assign anything to it. 
+Then we make a switch statement where the argument is the TYPE of argument passed 
+in to the saveState method. 
+Remember that in switch statement the expression in parentheses is evaluated once and then 
+compared with the values of each case; if there is a match, the subsequent block of code runs. 
+If no match ocurrs, the default block of code runs. 
+So here we are saying, if the argument type is a function the newState variable will be equal to 
+the value of that function taking the prevState variable as its argument. 
+If the type is an object, the newState value will be that object. 
+If neither a function or an object is passed it, this is an error, and the we will set a new error message to
+indicate this.
+And lastly we are setting the state itself, defined at the beginning of the class, to the newState value 
+that we assigned in the saveState method.
+
+Then we create a default/initial value, which is an object with an empty array inside. 
+***
+const initialValue = { 
+    moves: []
+}
+***
+And we set the state in Store to the initialValue.
+
+
 //3:03:33
-//3:34:38 - 3:54:21
+//3:34:38  
+//3:54:21 - 4:01:14
