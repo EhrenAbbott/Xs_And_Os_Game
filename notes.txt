@@ -382,7 +382,13 @@ handlePlayerMove(squareEl, player) {
 
 Now to update get game(). First we have to pass players into the constructor so get game() can access it. 
 
+
+To reset the game, instead of saving the state to the initial value, we should update the state to take the finished
+game that we just completed, push that to history, and then start a new game. 
+
+
+
 //3:03:33
 //3:34:38  
 //3:54:21
-//4:24:52
+//4:48:43

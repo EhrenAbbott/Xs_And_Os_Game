@@ -166,10 +166,11 @@ function init() {
     const store = new Store(players);
      
     view.bindGameResetEvent((event) => { 
-        view.closeModal();
+        view.closeAll();
 
         store.reset(); 
 
+        view.clearMoves(); 
         view.setTurnIndicator(store.game.currentPlayer);
     }) 
      
