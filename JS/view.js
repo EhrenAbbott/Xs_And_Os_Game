@@ -68,6 +68,16 @@ export default class View {
         });
     } 
 
+    initializeMoves(moves) { 
+        this.$$.squares.forEach((square) => { 
+            const existingMove = moves.find((move) => move.square.Id === +square.id) 
+
+            if (existingMove) { 
+                this.handlePlayerMove(square, existingMove.player)
+            }
+        })
+    }
+
     #closeModal(){ 
         this.$.modal.classList.add('hidden')
     }
@@ -100,6 +110,7 @@ export default class View {
         icon.classList.add('fa-solid', player.iconClass, player.colorClass);
         squareEl.replaceChildren(icon)
     }
+
 
     // Player 1 | 2
     setTurnIndicator(player) { 
