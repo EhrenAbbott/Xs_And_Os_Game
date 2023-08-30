@@ -172,8 +172,11 @@ function init() {
 
         view.clearMoves(); 
         view.setTurnIndicator(store.game.currentPlayer);
-
-        console.log(store.stats);
+        view.updateScoreboard(
+            store.stats.playerWithStats[0].wins, 
+            store.stats.playerWithStats[1].wins, 
+            store.stats.ties
+        );
     }) 
      
     view.bindNewRoundEvent((event) => { 
