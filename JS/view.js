@@ -70,10 +70,10 @@ export default class View {
 
     initializeMoves(moves) { 
         this.$$.squares.forEach((square) => { 
-            const existingMove = moves.find((move) => move.square.Id === +square.id) 
+            const existingMove = moves.find((move) => move.squareId === +square.id) 
 
             if (existingMove) { 
-                this.handlePlayerMove(square, existingMove.player)
+                this.handlePlayerMove(square, existingMove.player);
             }
         })
     }
